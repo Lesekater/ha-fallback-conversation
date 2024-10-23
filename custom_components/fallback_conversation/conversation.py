@@ -8,7 +8,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.util import ulid
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant_intents import get_languages
+from home_assistant_intents import get_languages
 
 from homeassistant.helpers import (
     config_validation as cv,

@@ -3,10 +3,11 @@ import asyncio
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import EntityPlatform
 from homeassistant.components.sensor import SensorEntity
+from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.components.sensor import ENTITY_ID_FORMAT
 from homeassistant.components.conversation.models import ConversationResult
 
-class FallbackResultEntity(SensorEntity):
+class FallbackResultEntity(SensorEntity, RestoreEntity):
     """Entity to store the latest fallback result."""
 
     def __init__(self, hass: HomeAssistant):
@@ -45,3 +46,8 @@ class FallbackResultEntity(SensorEntity):
             "response": result.response,
         }
         self.async_write_ha_state()
+
+    async def async_get_last_state(self):
+        """Get the last state of the entity."""
+        states = await self.hass.states.async_get(ENTITY_ID_FORMAT.format("sensor.fallback_conversation_result"))
+        return states

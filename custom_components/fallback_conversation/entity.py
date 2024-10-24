@@ -2,10 +2,11 @@ import asyncio
 
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import EntityPlatform
+from homeassistant.components.sensor import SensorEntity
 from homeassistant.components.sensor import ENTITY_ID_FORMAT
 from homeassistant.components.conversation.models import ConversationResult
 
-class FallbackResultEntity():
+class FallbackResultEntity(SensorEntity):
     """Entity to store the latest fallback result."""
 
     def __init__(self, hass: HomeAssistant, unique_id):

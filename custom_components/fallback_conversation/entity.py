@@ -9,18 +9,11 @@ from homeassistant.components.conversation.models import ConversationResult
 class FallbackResultEntity(SensorEntity):
     """Entity to store the latest fallback result."""
 
-    def __init__(self, hass: HomeAssistant, unique_id):
+    def __init__(self, hass: HomeAssistant):
         """Initialize the entity."""
         self.hass = hass
-        self._unique_id = unique_id
         self._state = None
         self._attributes = {}
-        self.entity_id = ENTITY_ID_FORMAT.format(unique_id)
-
-    @property
-    def unique_id(self):
-        """Return the unique ID of the entity."""
-        return self._unique_id
 
     @property
     def name(self):

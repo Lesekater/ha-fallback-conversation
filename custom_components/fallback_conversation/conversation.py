@@ -66,7 +66,7 @@ class FallbackConversationAgent(conversation.ConversationEntity, conversation.Ab
             conversation.ConversationEntityFeature.CONTROL
         )
         self.in_context_examples = None
-        self.result_entity = FallbackResultEntity(hass, f"{self._attr_unique_id}_result")
+        self.result_entity = FallbackResultEntity(hass, f"{entry.entry_id}_result")
 
     @property
     def supported_languages(self) -> list[str]:

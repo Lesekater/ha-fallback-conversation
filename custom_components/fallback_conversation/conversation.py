@@ -6,6 +6,7 @@ import logging
 from homeassistant.components import assist_pipeline, conversation
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.components.conversation import trace
 from homeassistant.util import ulid
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from home_assistant_intents import get_languages
@@ -131,6 +132,16 @@ class FallbackConversationAgent(conversation.ConversationEntity, conversation.Ab
                 debug_level,
                 result,
             )
+
+            trace.async_conversation_trace_append(
+                trace.ConversationTraceEventType.AGENT_DETAIL,
+                {
+                    "agent_id": agent_id,
+                    "agent_name": agent_name,
+                    "response": result.response,
+                }
+            )
+
             if result.response.response_type != intent.IntentResponseType.ERROR and result.response.speech['plain']['original_speech'].lower() not in STRANGE_ERROR_RESPONSES:
                 return result
             all_results.append(result)

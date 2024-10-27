@@ -21,7 +21,7 @@ class FallbackResultEntity(SensorEntity):
         self._attr_unique_id = f"{entry.entry_id}_result"
         self._state = None
         self._attributes = {}
-        self.entity_id = ENTITY_ID_FORMAT.format(self._unique_id)
+        self.entity_id = ENTITY_ID_FORMAT.format(self._attr_unique_id)
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""

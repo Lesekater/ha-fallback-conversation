@@ -36,7 +36,7 @@ class FallbackResultEntity(SensorEntity):
 
         plain_text_response = ""
         if result.response.speech.plain:
-            plain_text_response = result.response.speech.plain
+            plain_text_response = result.response.plain.speech
 
         formatted_state: str = f"""
         [Agent]:{agent_name},

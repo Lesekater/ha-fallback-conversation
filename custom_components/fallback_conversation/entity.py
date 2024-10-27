@@ -5,37 +5,23 @@ from homeassistant.helpers.entity_platform import EntityPlatform
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.components.sensor import ENTITY_ID_FORMAT
 from homeassistant.components.conversation.models import ConversationResult
+from homeassistant.config_entries import ConfigEntry
 
 class FallbackResultEntity(SensorEntity):
     """Entity to store the latest fallback result."""
 
-    def __init__(self, hass: HomeAssistant, unique_id):
+    entry: ConfigEntry
+    hass: HomeAssistant
+
+    def __init__(self, hass: HomeAssistant, entry: ConfigEntry):
         """Initialize the entity."""
         self.hass = hass
-        self._unique_id = unique_id
+        self.entry = entry
+        self._attr_name = f"{entry.title} Result"
+        self._attr_unique_id = f"{entry.entry_id}_result"
         self._state = None
         self._attributes = {}
-        self.entity_id = ENTITY_ID_FORMAT.format(unique_id)
-
-    @property
-    def unique_id(self):
-        """Return the unique ID of the entity."""
-        return self._unique_id
-
-    @property
-    def name(self):
-        """Return the name of the entity."""
-        return "Fallback Conversation Result"
-
-    @property
-    def state(self):
-        """Return the state of the entity."""
-        return self._state
-
-    @property
-    def extra_state_attributes(self):
-        """Return the state attributes."""
-        return self._attributes
+        self.entity_id = ENTITY_ID_FORMAT.format(self._unique_id)
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""

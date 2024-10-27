@@ -31,12 +31,12 @@ class FallbackResultEntity(SensorEntity):
             self._state = state.state
             self._attributes = dict(state.attributes)
 
-    def update_result(self, agent_name, prompt: str, result: ConversationResult):
+    async def update_result(self, agent_name, prompt: str, result: ConversationResult):
         """Update the entity with the latest fallback result."""
 
         plain_text_response = ""
         if result.response.speech.plain:
-            plain_text_response = result.response.plain.speech
+            plain_text_response = result.response.speech.plain.speech
 
         formatted_state: str = f"""
         [Agent]:{agent_name},

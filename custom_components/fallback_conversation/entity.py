@@ -26,10 +26,6 @@ class FallbackResultEntity(SensorEntity):
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
-        state = await self.async_get_last_state()
-        if state:
-            self._state = state.state
-            self._attributes = dict(state.attributes)
 
     async def update_result(self, agent_name, prompt: str, result: ConversationResult):
         """Update the entity with the latest fallback result."""

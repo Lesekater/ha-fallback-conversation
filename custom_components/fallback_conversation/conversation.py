@@ -188,7 +188,7 @@ class FallbackConversationAgent(conversation.ConversationEntity, conversation.Ab
 
         # Save result to entity
         if self.result_entity:
-            self.result_entity.update_result(agent_name, user_input.text, result)
+            self.result_entity.async_update_result(agent_name, user_input.text, result)
         else:
             _LOGGER.warning("No result entity to update")
 
